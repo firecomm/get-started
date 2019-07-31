@@ -1,25 +1,23 @@
-ClientToServerHandler( onClientStream ) {
+function ClientToServerHandler(onClientStream){
   let resArray = [];
   onClientStream.on('data', (array) => {
+    console.log({resArray})
     resArray = resArray.concat(array);
   })
   onClientStream.on('end', () => {
     onClientStream.send({ 
-      status: true,
-      comments: 'response from server: the client stream is complete',
-      array : resArray,
+      confirm: null,
+      comment: 'response from server: the client stream is complete',
+      arrays : resArray,
     });
   })
 };
-ServerToClientHandler( onClientCall ) {
+function ServerToClientHandler( onClientCall ){
   let count = 0;
   const timer = setInterval(() => {
     count += 1;
-    onClientCall.write({array: [count, count / 2]})
+    onClientCall.write({arrays: [count, count + 1]})
   }, 1);
-  setTimeout(() => {
-    clearInterval(timer);
-  }, 5000);
 };
 module.exports = { 
 	ClientToServerHandler,

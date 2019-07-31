@@ -7,8 +7,8 @@ const { ClientToServerHandler,
 
 const server = new Server();
 server.addService( package.ArrayTransfer,   { 
-  ClientToServer: ClientToServerHandler,
-  ServerToClient: ServerToClientHandler,
+  clientToServer: ClientToServerHandler,
+  serverToClient: ServerToClientHandler,
 });
 // server.addService( package.HeavyMath,   { 
 //   UnaryMath: UnaryMathHandler,
