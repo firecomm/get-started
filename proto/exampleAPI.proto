@@ -3,24 +3,24 @@ syntax = 'proto3';
 
 package exampleAPI;
 
-service ArrayTransfer {
-  rpc ClientToServer(stream Array) returns (Confirmation) {};
-  rpc ServerToClient(Confirmation) returns (stream Array) {};
+service SimpleMath {
+  rpc UnaryMath(Math) returns (Math) {};
+  rpc ClientToServer(stream Array) returns (Message) {};
 }
 
 service HeavyMath {
-  rpc UnaryMath(Math) returns (Math) {};
-  rpc BidiMath(stream Math) returns (stream Math) {};
+  rpc ServerToClient(Message) returns (stream Array) {};
+  rpc BidiMath(stream Math) returns (stream Array) {};
 }
 
-message Confirmation {
+message Message {
   bool confirm = 1;
   string comment = 2;
-  repeated double arrays = 3;
+  repeated double responses = 3;
 }
 
 message Array {
-  repeated double arrays = 1;
+  repeated double millions = 1;
 }
 
 message Math {
