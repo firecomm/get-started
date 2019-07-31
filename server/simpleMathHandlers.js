@@ -1,34 +1,21 @@
-let resArray = [0, 1];
-function ClientToServerHandler(onClientStream){
-  onClientStream.on('data', ({millions}) => {
-    resArray = resArray.concat(millions);
+function UnaryMathHandler(unary) {
+  res = unary.req.data.num + 1;
+  unary.send({num: res});
+}
+let resArr = [];
+function ClientToServerHandler(clientStream) {
+  clientStream.on('data', ({millions}) => {
+    resArr = resArr.concat(millions);
   })
   setTimeout(() => {
-    console.log(
-      'server response:', 
-      null,
-      'response from server: the client stream is complete',
-      resArray,
-    );
-    onClientStream.send({ 
-      confirm: null,
+    clientStream.send({ 
+      confirm: true,
       comment: 'response from server: the client stream is complete',
-      responses : resArray,
+      responses : resArr,
     });
   }, 5000)
 };
-function ServerToClientHandler(onClientCall){
-  let count = 0;
-  const timer = setInterval(() => {
-    count += 1;
-    resArray[0] = count;
-    onClientCall.write({arrays: resArray})
-  }, 1);
-  setTimeout(() => {
-    clearInterval(timer)
-  }, 5000)
-};
 module.exports = { 
+	UnaryMathHandler,
 	ClientToServerHandler,
-	ServerToClientHandler,
 }

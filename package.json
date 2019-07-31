@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm test",
     "start": "node server/server.js",
-    "array": "node clients/arrayTransfer.js"
+    "array": "node clients/simpleMath.js"
   },
   "repository": {
     "type": "git",

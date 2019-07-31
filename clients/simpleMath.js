@@ -1,13 +1,13 @@
 const { Stub } = require( 'firecomm' );
 const package = require( '../package.js' )
 const arrayStub = new Stub( 
-	package.simpleMath, 
+	package.SimpleMath, 
 	'localhost: 3000',
 );
 let reqArray = [0];
 const clientStream = arrayStub.clientToServer((err, res) => {
   if (err) throw(err);
-  console.log(res);
+  console.log('response from server:', res);
 });
 let count = 0;
 let timer = setInterval(() => {
@@ -18,11 +18,4 @@ let timer = setInterval(() => {
 setTimeout(() => {
   clearInterval(timer);
 }, 5000)
-const serverStream = arrayStub.serverToClient({ 
-  confirm: null,
-  comment: 'request from client: the server stream should start',
-  millions: reqArray,
-});
-serverStream.on('data', ({millions}) => {
-  reqArray = reqArray.concat(millions);
-});
+arrayStub.unaryMath({num: 1});
