@@ -1,0 +1,32 @@
+{
+  "name": "firecomm_get_started_guide",
+  "version": "1.0.0",
+  "description": "Guide for spinning up a firecomm/gRPC-Node server, and two clients",
+  "main": "/server/server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "/server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firecomm/get-started.git"
+  },
+  "keywords": [
+    "guide",
+    "grpc",
+    "grpc-node",
+    "tutorial",
+    "start",
+    "documentation",
+    "docs"
+  ],
+  "author": "Daniel Nagano-Gerace",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/firecomm/get-started/issues"
+  },
+  "homepage": "https://github.com/firecomm/get-started#readme",
+  "dependencies": {
+    "firecomm": "^1.0.1-0"
+  }
+}

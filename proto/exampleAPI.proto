@@ -1,0 +1,27 @@
+// proto/exampleAPI.proto
+syntax = 'proto3';
+
+package exampleAPI;
+
+service ArrayTransfer {
+  rpc ClientToServer (stream Array) returns (Confirmation) {};
+  rpc ServerToClient (Confirmation) returns (stream Array) {};
+}
+
+service HeavyMath {
+  rpc UnaryMath (Math) returns (Math) {};
+  rpc BidiMath (stream Math) returns (stream Math) {};
+}
+
+message Confirmation {
+  bool status = 1;
+  string comments = 2;
+}
+
+message Array {
+  repeated float decimals = 1;
+}
+
+message Math {
+  double num = 1;
+}
