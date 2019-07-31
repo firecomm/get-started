@@ -14,13 +14,13 @@ service HeavyMath {
 }
 
 message Message {
-  bool confirm = 1;
-  string comment = 2;
-  repeated double responses = 3;
+  bool completed = 1;
+  string serverResponse = 2;
+  double arrayItemsSent = 3;
 }
 
 message Array {
-  repeated double millions = 1;
+  repeated int32 numArrays = 1;
 }
 
 message Math {

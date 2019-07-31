@@ -1,17 +1,19 @@
 function UnaryMathHandler(unary) {
-  res = unary.req.data.num + 1;
-  unary.send({num: res});
+  console.log(unary)
+  setTimeout(() => unary.send({num: 1 + 1}, 1000));
 }
 let resArr = [];
 function ClientToServerHandler(clientStream) {
-  clientStream.on('data', ({millions}) => {
-    resArr = resArr.concat(millions);
+  clientStream.on('data', ({numArrays}) => {
+    resArr = resArr.concat(numArrays);
   })
   setTimeout(() => {
     clientStream.send({ 
-      confirm: true,
-      comment: 'response from server: the client stream is complete',
-      responses : resArr,
+      completed: true,
+      serverResponse: `client stream is complete after 5 seconds`,
+      arrayItemsSent : resArr.reduce((total, item) => {
+        return total + item;
+      }),
     });
   }, 5000)
 };
