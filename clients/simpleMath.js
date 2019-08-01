@@ -8,11 +8,19 @@ simpleStub.unaryMath({num: 1}, (err, {num}) => {
   if (err) throw(err);
   console.log('unary:', num);
 });
-let reqArray = [0];
+let finalNum = 0;
 const clientStream = simpleStub.clientToServer((err, res) => {
   if (err) throw(err);
   console.log('clientStream:', res);
+  const serverStream = simpleStub.serverToClient({num: res.arrayItemsStreamed});
+  serverStream.on('data', ({numArray}) => {
+    finalNum += numArray.reduce((total, item) => total + item);
+  })
+  serverStream.on('end', () => {
+    console.log('finalNumberOfStreamedItems:', finalNum);
+  })
 });
+let reqArray = [];
 let count = 1;
 let timer = setInterval(() => {
   reqArray.push(count);
@@ -21,7 +29,3 @@ let timer = setInterval(() => {
 setTimeout(() => {
   clearInterval(timer);
 }, 1000);
-simpleStub.serverToClient({num: 1}, (err, {num}) => {
-  if (err) throw(err);
-  console.log('unary:', num);
-});

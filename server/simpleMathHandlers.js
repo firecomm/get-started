@@ -10,25 +10,24 @@ function ClientToServerHandler(clientStream) {
     clientStream.send({ 
       completed: true,
       serverResponse: `client stream is complete after 1 second`,
-      arrayItemsStreamed : resArr.reduce((total, item) => {
-        return total + item;
-      }),
+      arrayItemsStreamed : resArr.reduce((total, item) => total + item),
     });
   }, 1000)
 };
-// function ServerToClientHandler(clientCall){
-//   let num = clientCall.body.arrayItemsStreamed;
-//   const timer = setInterval(() => {
-//     num += 1;
-//     resArray = num;
-//     clientCall.write({arrays: resArray})
-//   }, 1);
-//   setTimeout(() => {
-//     clearInterval(timer)
-//   }, 5000)
-// };
+let filledArray;
+function ServerToClientHandler(clientCall){
+  console.log('clientStream:', clientCall.body);
+  let num = clientCall.body.arrayItemsStreamed;
+  const timer = setInterval(() => {
+    filledArray = new Array(num).fill(1);
+    clientCall.write({numArray: filledArray})
+  }, 1);
+  setTimeout(() => {
+    clearInterval(timer)
+  }, 5000)
+};
 module.exports = { 
 	UnaryMathHandler,
   ClientToServerHandler,
-  // ServerToClientHandler,
+  ServerToClientHandler,
 }

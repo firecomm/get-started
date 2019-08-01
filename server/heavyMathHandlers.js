@@ -1,5 +1,4 @@
 
 module.exports = { 
-	ClientToServerHandler,
-	ServerToClientHandler,
+	BidiMathHandler,
 }
