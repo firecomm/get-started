@@ -6,7 +6,7 @@ package exampleAPI;
 service SimpleMath {
   rpc UnaryMath(Math) returns (Math) {};
   rpc ClientToServer(stream Array) returns (Message) {};
-  rpc ServerToClient(Message) returns (stream Array) {};
+  // rpc ServerToClient(Message) returns (stream Array) {};
 }
 
 service HeavyMath {

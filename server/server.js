@@ -5,21 +5,19 @@ const {
   ClientToServerHandler, 
   ServerToClientHandler, 
 } = require( './simpleMathHandlers.js' );
-// const { UnaryMathHandler,
-// 	BidiMathHandler } = require( './heavyMathHandlers.js' );
+const { BidiMathHandler } = require( './heavyMathHandlers.js' );
 
 const server = new Server();
 server.addService( package.SimpleMath,   {
   unaryMath:  UnaryMathHandler,
   clientToServer: ClientToServerHandler,
-  serverToClient: ServerToClientHandler,
+  // serverToClient: ServerToClientHandler,
 });
-// server.addService( package.HeavyMath,   { 
-//   UnaryMath: UnaryMathHandler,
-//   BidiMath: BidiMathHandler,
-// });
+server.addService( package.HeavyMath,   { 
+  BidiMath: BidiMathHandler,
+});
 server.bind( [ 
   '0.0.0.0: 3000', 
-  '0.0.0.0: 2999', 
+  '0.0.0.0: 2999',
 ] );
 server.start();

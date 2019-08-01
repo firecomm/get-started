@@ -22,7 +22,7 @@ let timer = setInterval(() => {
 setTimeout(() => {
   clearInterval(timer);
 }, 1000);
-const serverStream = simpleStub.serverToClient({num: 1000000});
-  serverStream.on('data', ({numArray}) => {
-    finalNum += numArray.reduce((total, item) => total + item);
-  })
+// const serverStream = simpleStub.serverToClient({num: 1000000});
+//   serverStream.on('data', ({numArray}) => {
+//     finalNum += numArray.reduce((total, item) => total + item);
+//   })

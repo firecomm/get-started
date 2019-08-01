@@ -15,21 +15,21 @@ function ClientToServerHandler(clientStream) {
   }, 1000)
 };
 let filledArray;
-function ServerToClientHandler(clientCall){
-  // console.log('clientStream:', clientCall.body);
-  let num = 1000000;
-  const timer = setInterval(() => {
-    num += 1000000
-    filledArray = new Array(num).fill(1);
-    clientCall.write({numArray: filledArray})
-  }, 1);
-  setTimeout(() => {
-    clearInterval(timer)
-    console.log(num)
-  }, 5000)
-};
+// function ServerToClientHandler(clientCall){
+//   // console.log('clientStream:', clientCall.body);
+//   let num = 1000000;
+//   const timer = setInterval(() => {
+//     num += 1000000
+//     filledArray = new Array(num).fill(1);
+//     clientCall.write({numArray: filledArray})
+//   }, 1);
+//   setTimeout(() => {
+//     clearInterval(timer)
+//     console.log(num)
+//   }, 5000)
+// };
 module.exports = { 
 	UnaryMathHandler,
   ClientToServerHandler,
-  ServerToClientHandler,
+  // ServerToClientHandler,
 }
