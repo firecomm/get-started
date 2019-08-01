@@ -12,13 +12,6 @@ let finalNum = 0;
 const clientStream = simpleStub.clientToServer((err, res) => {
   if (err) throw(err);
   console.log('clientStream:', res);
-  const serverStream = simpleStub.serverToClient({num: res.arrayItemsStreamed});
-  serverStream.on('data', ({numArray}) => {
-    finalNum += numArray.reduce((total, item) => total + item);
-  })
-  serverStream.on('end', () => {
-    console.log('finalNumberOfStreamedItems:', finalNum);
-  })
 });
 let reqArray = [];
 let count = 1;
@@ -29,3 +22,8 @@ let timer = setInterval(() => {
 setTimeout(() => {
   clearInterval(timer);
 }, 1000);
+const serverStream = simpleStub.serverToClient({num: 1000000});
+  serverStream.on('data', ({numArray}) => {
+    finalNum += numArray.reduce((total, item) => total + item);
+    console.log('StreamedItemsWithin5Seconds:', finalNum);
+  })

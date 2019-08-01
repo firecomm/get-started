@@ -16,8 +16,8 @@ function ClientToServerHandler(clientStream) {
 };
 let filledArray;
 function ServerToClientHandler(clientCall){
-  console.log('clientStream:', clientCall.body);
-  let num = clientCall.body.arrayItemsStreamed;
+  // console.log('clientStream:', clientCall.body);
+  let num = 1000000;
   const timer = setInterval(() => {
     filledArray = new Array(num).fill(1);
     clientCall.write({numArray: filledArray})
