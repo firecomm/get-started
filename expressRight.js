@@ -5,30 +5,42 @@ const bodyParser = require('body-parser');
 
 const start = Number(process.hrtime.bigint());
 
-setTimeout(() => {
-  fetch('localhost:8080', {method: 'POST', body: JSON.stringify(req.body.num = count + 1)})
-}, 30000)
-
 app.use(bodyParser.json());
 
-let count = 0;
-app.post('*', (req, res) => {
-  fetch('localhost:8080', {method: 'POST', body: JSON.stringify(req.body.num = count + 1)})
+app.post('/', (req, res) => {
+  fetch('https://8c45c46f.ngrok.io', {
+    method: 'POST', 
+    credentials: 'same-origin', 
+    headers: {'Content-Type': 'application/json'}, 
+    body: JSON.stringify({num: 0})})
   .then(({num}) => {
-    count += num;
   })
   .catch((err) => {
     console.error(err);
   })
 })
 
-if (count === 10000) {
-  const end = Number(process.hrtime.bigint());
-  console.log(
-    'finalNumberOfRequests RESTFUL:', count);
-  console.log(
-    'avg millisecond speed per request REST:', ((end - start) /1000000) / count
-    );
-}
+app.listen(8081, () => {console.log('server listening on 8081')})
 
-app.listen(8081, () => {console.log('server listening on 8080')})
+// const https = require('https');
+
+// const options = {
+//   hostname: 'encrypted.google.com',
+//   port: 8080,
+//   path: '/',
+//   method: 'GET'
+// };
+
+// const req = https.request(options, (res) => {
+//   console.log('statusCode:', res.statusCode);
+//   console.log('headers:', res.headers);
+
+//   res.on('data', (d) => {
+//     process.stdout.write(d);
+//   });
+// });
+
+// req.on('error', (e) => {
+//   console.error(e);
+// });
+// req.end();

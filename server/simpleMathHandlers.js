@@ -1,5 +1,7 @@
+let count = 0;
 function UnaryMathHandler(unary) {
-  unary.send({num: 1 + 1})
+  count += 1;
+  unary.send({num: count})
 }
 let resArr = [];
 function ClientToServerHandler(clientStream) {
