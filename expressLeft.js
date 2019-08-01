@@ -12,7 +12,6 @@ setTimeout(() => {
     headers: {'Content-Type': 'application/json'}, 
     body: JSON.stringify({num: 1})})
   .then(data => {
-    console.log('let the race begin');
   })
   .catch(err => {
     console.error(err);
@@ -24,12 +23,12 @@ app.use(bodyParser.json());
 let count = 0;
 app.post('/', (req, res) => {
   count += 2;
-  if(count === 10) {
+  if(count === 100) {
     const end = Number(process.hrtime.bigint());
       console.log(
         'finalNumberOfRequests RESTFUL:', count);
       console.log(
-        'avg millisecond speed per request REST:', ((end - start) /1000000) / count
+        'avg millisecond speed per request REST:', ((end - start) /10000000) / count
         );
   }
   fetch('https://3573cedf.ngrok.io', {
