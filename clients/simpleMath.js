@@ -25,5 +25,4 @@ setTimeout(() => {
 const serverStream = simpleStub.serverToClient({num: 1000000});
   serverStream.on('data', ({numArray}) => {
     finalNum += numArray.reduce((total, item) => total + item);
-    console.log('StreamedItemsWithin5Seconds:', finalNum);
   })
