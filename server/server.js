@@ -1,7 +1,10 @@
 const { Server } = require( 'firecomm' );
 const package = require( '../package.js' );
-const { UnaryMathHandler,
-	ClientToServerHandler } = require( './simpleMathHandlers.js' );
+const { 
+  UnaryMathHandler,
+  ClientToServerHandler, 
+  ServerToClientHandler, 
+} = require( './simpleMathHandlers.js' );
 // const { UnaryMathHandler,
 // 	BidiMathHandler } = require( './heavyMathHandlers.js' );
 
@@ -9,6 +12,7 @@ const server = new Server();
 server.addService( package.SimpleMath,   {
   unaryMath:  UnaryMathHandler,
   clientToServer: ClientToServerHandler,
+  serverToClient: ServerToClientHandler,
 });
 // server.addService( package.HeavyMath,   { 
 //   UnaryMath: UnaryMathHandler,

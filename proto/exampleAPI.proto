@@ -6,21 +6,21 @@ package exampleAPI;
 service SimpleMath {
   rpc UnaryMath(Math) returns (Math) {};
   rpc ClientToServer(stream Array) returns (Message) {};
+  rpc ServerToClient(Message) returns (stream Array) {};
 }
 
 service HeavyMath {
-  rpc ServerToClient(Message) returns (stream Array) {};
   rpc BidiMath(stream Math) returns (stream Array) {};
 }
 
 message Message {
   bool completed = 1;
   string serverResponse = 2;
-  double arrayItemsSent = 3;
+  double arrayItemsStreamed = 3;
 }
 
 message Array {
-  repeated int32 numArrays = 1;
+  repeated int32 numArray = 1;
 }
 
 message Math {
