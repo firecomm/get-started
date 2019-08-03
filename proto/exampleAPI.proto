@@ -10,7 +10,7 @@ service SimpleMath {
 }
 
 service HeavyMath {
-  rpc BidiMath(stream Math) returns (stream Math) {};
+  rpc BidiMath(stream ReqRes) returns (stream ReqRes) {};
 }
 
 message Message {
@@ -25,4 +25,9 @@ message Array {
 
 message Math {
   double num = 1;
+}
+
+message ReqRes {
+  double req = 1;
+  double res = 2;
 }
