@@ -19,13 +19,20 @@ message Message {
   double arrayItemsStreamed = 3;
 }
 
-message Array {
-  repeated int32 numArray = 1;
-}
-
 message Math {
   double num = 1;
 }
+
+message Array {
+  repeated int32 numArray = 1;
+  enum Corpus {
+    UNIVERSAL = 1;
+    SECOND = 2;
+  }
+  Corpus corpus = 2;
+
+}
+
 
 message ReqRes {
   double req = 1;

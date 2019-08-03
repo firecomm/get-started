@@ -5,7 +5,8 @@ function UnaryMathHandler(unary) {
 }
 let resArr = [];
 function ClientToServerHandler(clientStream) {
-  clientStream.on('data', ({numArray}) => {
+  clientStream.on('data', ({numArray, corpus}) => {
+    console.log(corpus);
     resArr = resArr.concat(numArray);
   })
   setTimeout(() => {

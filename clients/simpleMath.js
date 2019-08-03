@@ -8,7 +8,7 @@ simpleStub.unaryMath({num: 1}, (err, {num}) => {
   if (err) throw(err);
   console.log('unary:', num);
 });
-let finalNum = 0;
+
 const clientStream = simpleStub.clientToServer((err, res) => {
   if (err) throw(err);
   console.log('clientStream:', res);
@@ -17,7 +17,7 @@ let reqArray = [];
 let count = 1;
 let timer = setInterval(() => {
   reqArray.push(count);
-  clientStream.write({numArray: reqArray})
+  clientStream.write({numArray: reqArray, corpus: 2})
 }, 1);
 setTimeout(() => {
   clearInterval(timer);
