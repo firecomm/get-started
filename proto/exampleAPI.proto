@@ -1,40 +1,13 @@
 // proto/exampleAPI.proto
-syntax = 'proto3';
+syntax = "proto3";
 
 package exampleAPI;
 
-service SimpleMath {
-  rpc UnaryMath(Math) returns (Math) {};
-  rpc ClientToServer(stream Array) returns (Message) {};
-  // rpc ServerToClient(Message) returns (stream Array) {};
+service ChattyMath {
+  rpc BidiMath (stream Benchmark) returns (stream Benchmark) {};
 }
 
-service HeavyMath {
-  rpc BidiMath(stream ReqRes) returns (stream ReqRes) {};
-}
-
-message Message {
-  bool completed = 1;
-  string serverResponse = 2;
-  double arrayItemsStreamed = 3;
-}
-
-message Math {
-  double num = 1;
-}
-
-message Array {
-  repeated int32 numArray = 1;
-  enum Corpus {
-    UNIVERSAL = 1;
-    SECOND = 2;
-  }
-  Corpus corpus = 2;
-
-}
-
-
-message ReqRes {
-  double req = 1;
-  double res = 2;
+message Benchmark {
+  double requests = 1;
+  double responses = 2;
 }

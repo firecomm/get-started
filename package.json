@@ -6,8 +6,7 @@
   "scripts": {
     "test": "npm test",
     "start": "node server/server.js",
-    "array": "node clients/simpleMath.js",
-    "heavy": "node clients/heavyMath.js"
+    "client": "node clients/chattyMath.js"
   },
   "repository": {
     "type": "git",
@@ -29,10 +28,6 @@
   },
   "homepage": "https://github.com/firecomm/get-started#readme",
   "dependencies": {
-    "firecomm": "^1.0.1-0"
-  },
-  "devDependencies": {
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.0"
+    "firecomm": "^2.0.3"
   }
 }
