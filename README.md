@@ -73,14 +73,16 @@ Before we can interact with a client, our Server needs Handlers. Handlers are us
 function BidiMathHandler(bidi) {
   let start;
   let end;
+  let perReq;
+  let perSec;
   bidi
     .on('metadata', (metadata) => {
       start = Number(process.hrtime.bigint());
       bidi.set({thisSetsMetadata: 'responses incoming'})
-      console.log(metadata.getMap());
+      console.log(metadata.getMap()); // maps the special metadata object as a simple Object
     })
     .on('error', (err) => {
-      console.exception(err)
+      console.error(err)
     })
     .on('data', (benchmark) => {
       bidi.send(
@@ -90,11 +92,14 @@ function BidiMathHandler(bidi) {
         }
       );
       if (benchmark.requests % 10000 === 0) {
-        end = Number(process.hrtime.bigint());
+        current = Number(process.hrtime.bigint());
+        perReq = ((current - start) /1000000) / benchmark.requests; // nanoseconds to milliseconds averaging total requests
+        perSec = 1 / (perReq / 1000); // inverting milliseconds per request to requests per second
       console.log(
-        'client address:', bidi.getPeer(),
+        '\nclient address:', bidi.getPeer(),
         '\nnumber of requests:', benchmark.requests,
-        '\navg millisecond speed per request:', ((end - start) /1000000) / benchmark.requests
+        '\navg millisecond speed per request:', perReq,
+        '\nrequests per second:', perSec,
       );
     }
   })
@@ -191,11 +196,13 @@ const stub = new Stub(
 
 let start;
 let end;
+let perRes;
+let perSec;
 const bidi = stub.bidiMath({thisIsMetadata: 'let the races begin'})
   .send({requests: 1, responses: 0})
   .on( 'metadata', (metadata) => {
     start = Number(process.hrtime.bigint());
-    console.log(metadata.getMap())
+    console.log(metadata.getMap()) // maps the special metadata object as a simple Object
   })
   .on( 'error', (err) => console.error(err))
   .on( 'data', (benchmark) => {
@@ -207,10 +214,13 @@ const bidi = stub.bidiMath({thisIsMetadata: 'let the races begin'})
     )
     if (benchmark.responses % 10000 === 0) {
       end = Number(process.hrtime.bigint());
+      perRes = ((end - start) /1000000) / benchmark.responses; // nanoseconds to milliseconds averaging total responses
+      perSec = 1 / (perRes / 1000); // inverting milliseconds per response to responses per second
     console.log(
-      'server address:', bidi.getPeer(),
+      // 'server address:', bidi.getPeer(),
       '\ntotal number of responses:', benchmark.responses,
-      '\navg millisecond speed per response:', ((end - start) /1000000) / benchmark.responses
+      '\navg millisecond speed per response:', perRes,
+      '\nresponses per second:', perSec,
     )
   }
 });
